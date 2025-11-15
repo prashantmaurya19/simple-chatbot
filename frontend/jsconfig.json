@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/util/*": ["./src/util/*"],
+      "@/pages/*": ["./src/pages/*"],
+      "@/pages/home/*": ["./src/pages/home/*"],
+    },
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "moduleResolution": "node",
+    "target": "ESNext",
+    "module": "ESNext",
+    "allowJs": true,
+    "checkJs": true,
+    "resolveJsonModule": true,
+    "strict": false,
+    "importHelpers": true
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "docs",
+    "dist"
+  ]
+}
