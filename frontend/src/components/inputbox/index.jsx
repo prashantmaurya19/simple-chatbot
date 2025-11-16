@@ -42,6 +42,7 @@ export function PromptInputBox() {
           msg: d.output_text,
           form: false,
           prompt: false,
+          title: d.title,
           retry: d.error,
         }),
       );
@@ -50,7 +51,7 @@ export function PromptInputBox() {
   return (
     <div
       className={twJoin(
-        "w-full grow-1",
+        "w-full",
         "rounded-[100px]",
         "flex-center",
         "dark:bg-input/30",

@@ -11,7 +11,7 @@ export function HomePage() {
   return (
     <div
       className={twJoin(
-        "w-full grow-1 px-[20%] py-5",
+        "w-full grow-1 px-[5%] py-5",
         "gap-2",
         "flex items-center justify-between flex-col",
       )}

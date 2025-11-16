@@ -55,6 +55,7 @@ export function ChatMessageCard({
                       msg: d.output_text,
                       form: false,
                       prompt: false,
+                      title: d.title,
                       retry: d.error,
                     }),
                   );

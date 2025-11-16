@@ -23,7 +23,7 @@ function App() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <div className={twJoin("wh-full flex-col flex-center")}>
+      <div className={twJoin("w-full flex-col flex-end-center")}>
         <NavBar />
         <BrowserRouter>
           <Routes>

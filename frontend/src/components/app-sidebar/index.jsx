@@ -2,11 +2,15 @@
 import {
   Calendar,
   ChevronRight,
+  CirclePlus,
+  History,
   Home,
   Inbox,
+  Plus,
   Search,
   Settings,
 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   Sidebar,
@@ -26,42 +30,12 @@ import {
   CollapsibleTrigger,
   CollapsibleContent,
 } from "../ui/collapsible";
-
-// Menu items.
-const items = [
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
-    items: [
-      { title: "t1", url: "#" },
-      { title: "t2", url: "#" },
-      { title: "t3", url: "#" },
-    ],
-  },
-  {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-];
+import { createNewChat, openChat } from "@/redux/chat-messages";
+import { truncate } from "@/lib/utils";
 
 export function AppSidebar() {
+  const dispatch = useDispatch();
+  const chats = useSelector((s) => s.chatmessages.chats);
   return (
     <Sidebar>
       <SidebarContent>
@@ -69,54 +43,59 @@ export function AppSidebar() {
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <button
+                    onClick={(e) => {
+                      dispatch(createNewChat());
+                    }}
+                  >
+                    <CirclePlus />
+                    New Chat
+                  </button>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel>Group 2</SidebarGroupLabel>
+          <SidebarGroupLabel>User Data</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <Collapsible
-                  key={item.title}
-                  asChild
-                  defaultOpen={item.isActive}
-                  className="group/collapsible"
-                >
-                  <SidebarMenuItem>
-                    <CollapsibleTrigger asChild>
-                      <SidebarMenuButton tooltip={item.title}>
-                        {item.icon && <item.icon />}
-                        <span>{item.title}</span>
-                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                      </SidebarMenuButton>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                      <SidebarMenuSub>
-                        {item.items?.map((subItem) => (
-                          <SidebarMenuSubItem key={subItem.title}>
-                            <SidebarMenuSubButton asChild>
-                              <a href={subItem.url}>
-                                <span>{subItem.title}</span>
-                              </a>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        ))}
-                      </SidebarMenuSub>
-                    </CollapsibleContent>
-                  </SidebarMenuItem>
-                </Collapsible>
-              ))}
+              <Collapsible
+                asChild
+                defaultOpen={chats.length > 0}
+                className="group/collapsible"
+              >
+                <SidebarMenuItem>
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton tooltip={"History"}>
+                      <History />
+                      <span>History</span>
+                      <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <SidebarMenuSub className={"gap-3 py-1"}>
+                      {chats.map((subItem, index) => (
+                        <SidebarMenuSubItem
+                          className="hover:bg-secondary/85"
+                          key={subItem.title}
+                        >
+                          <button
+                            onClick={(e) => {
+                              console.log(e.target);
+                              dispatch(openChat(index));
+                            }}
+                          >
+                            {truncate(subItem.title, 26)}
+                          </button>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </SidebarMenuItem>
+              </Collapsible>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
