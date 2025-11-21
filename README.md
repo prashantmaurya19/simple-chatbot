@@ -31,7 +31,7 @@ cd ./backend && yarn start
 ```
 
 ### .env setup
-create a .env file in backend folder
+create a .env file in backend folder.<br>
 Note: you need a open router api key
 ```env
 # backend/.env
