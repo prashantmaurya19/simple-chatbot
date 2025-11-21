@@ -29,3 +29,14 @@ cd ./backend && yarn start
 
 # visit http://localhost:3000 
 ```
+
+### .env setup
+create a .env file in backend folder
+Note: you need a open router api key
+```env
+# backend/.env
+OPEN_ROUTER_API_KEY=<API_KEY>
+```
+
+### Future Update
+- support for markdowns (currently not supported)

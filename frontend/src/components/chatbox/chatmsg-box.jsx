@@ -32,7 +32,7 @@ export function ChatMessageCard({
     <Card>
       <CardHeader>
         <CardTitle>{msg.sender}</CardTitle>
-        <CardDescription>Card Description</CardDescription>
+        
         {msg.retry ? (
           <CardAction>
             <Button
